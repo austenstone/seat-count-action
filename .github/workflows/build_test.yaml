@@ -26,7 +26,7 @@ jobs:
       - run: npm run lint
         continue-on-error: true
       - run: npm run build
-        run: |
+      - run: |
           git status --porcelain
           if [[ `git status --porcelain` ]]; then
             echo "You forgot to run `npm run build` 🤦!"
