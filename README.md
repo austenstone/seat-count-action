@@ -38,6 +38,10 @@ jobs:
     steps:
       - run: echo More than 90% of seats used!
 ```
+## Example Notification Actions
+- [slack-send](https://github.com/marketplace/actions/slack-send)
+- [send-email](https://github.com/marketplace/actions/send-email)
+- [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
 
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):
