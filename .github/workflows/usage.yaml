@@ -11,3 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - uses: ./
+        with:
+          org: octodemo
+          github-token: ${{ secrets.TOKEN }}

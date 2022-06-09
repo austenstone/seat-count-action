@@ -6,7 +6,6 @@ branding:
   color: "blue"
 
 inputs:
-
   github-token:
     description: The GitHub token used to create an authenticated client
     default: ${{ github.token }}
