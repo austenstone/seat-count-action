@@ -23,17 +23,15 @@ jobs:
     steps:
       - run: echo "${{needs.seats.outputs.percentage}}% of seats used."
       - run: echo "${{needs.seats.outputs.remaining}} seats remaining"
-  more:
+  more-than-50:
     needs: [seats]
-    if: ${{needs.seats.outputs.percentage}} > 50
+    if: needs.seats.outputs.percentage > 50
     runs-on: ubuntu-latest
     steps:
       - run: echo More than 50% of seats used.
-        if: ${{needs.seats.outputs.percentage}} > 50
-  less:
+  less-than-50:
     needs: [seats]
-    if: ${{needs.seats.outputs.percentage}} < 50
+    if: needs.seats.outputs.percentage < 50
     runs-on: ubuntu-latest
     steps:
       - run: echo Less than 50% of seats used.
-        if: ${{needs.seats.outputs.percentage}} < 50
