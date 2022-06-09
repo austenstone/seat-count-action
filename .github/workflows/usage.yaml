@@ -29,9 +29,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: echo More than 50% of seats used.
+        if: ${{needs.seats.outputs.percentage}} > 50
   less:
     needs: [seats]
     if: ${{needs.seats.outputs.percentage}} < 50
     runs-on: ubuntu-latest
     steps:
       - run: echo Less than 50% of seats used.
+        if: ${{needs.seats.outputs.percentage}} < 50
