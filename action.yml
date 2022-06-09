@@ -15,6 +15,24 @@ inputs:
     default: ${{ github.event.organization.login }}
     required: false
 
+outputs:
+  filled_seats:
+    description: The number of filled seats
+  seats:
+    description: The total number of seats
+  percentage:
+    description: Threshold percentage of seats
+    required: false
+  remaining:
+    description: Threshold remaining seats
+    required: false
+  name:
+    description: The name of the plan
+  space:
+    description: The package space remaining
+  private_repos:
+    description: The number of private repos
+
 runs:
   using: "node16"
   main: "dist/index.js"
