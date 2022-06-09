@@ -5,12 +5,16 @@ on:
   workflow_dispatch:
 
 jobs:
-  run:
-    name: Run Action
+  seats:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: ./
         with:
           org: octodemo
-          github-token: ${{ secrets.TOKEN }}
+          github-token: ${{secrets.TOKEN}}
+  print:
+    runs-on: ubuntu-latest
+    needs: [seats]
+    steps:
+      - run: echo "${{needs.seats.outputs.percentage}}% of seats used."
+      - run: echo "${{needs.seats.outputs.remaining}} seats remaining."
