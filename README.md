@@ -46,7 +46,7 @@ Various inputs are defined in [`action.yml`](action.yml):
 | --- | - | - |
 | github&#x2011;token | Token to use to authorize. | ${{&nbsp;github.token&nbsp;}} |
 
-## ➡️ Outputs
+## ⬅️ Outputs
 | Name | Description |
 | --- | - |
 | filled_seats | The number of filled seats. |
