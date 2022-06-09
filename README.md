@@ -3,7 +3,7 @@
 A simple [Action](https://docs.github.com/en/actions) to count the remaining seats in an organization. It is intended to be used in conjunction with other actions to do something like notify the user when there are less than 10 seats remaining.
 
 ## Usage
-Create a workflow (eg: `.github/workflows/on-issue-pr-open.yml`). See [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
+Create a workflow (eg: `.github/workflows/seat-count.yml`). See [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).
 
 You will need to [create a PAT(Personal Access Token)](https://github.com/settings/tokens/new?scopes=admin:org) that has `admin:org` access.
 
