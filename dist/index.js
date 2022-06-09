@@ -8767,7 +8767,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             core.setOutput('filled_seats', plan.filled_seats);
             core.setOutput('seats', plan.seats);
             if (plan.filled_seats && plan.seats) {
-                const percentage = Math.round(((plan.filled_seats / plan.seats) * 100) * 100) / 100;
+                const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
                 core.setOutput('percentage', percentage);
                 const remaining = plan.seats - plan.filled_seats;
                 core.setOutput('remaining', remaining);
