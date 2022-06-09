@@ -26,6 +26,14 @@ jobs:
       - run: npm run lint
         continue-on-error: true
       - run: npm run build
+        run: |
+          git status --porcelain
+          if [[ `git status --porcelain` ]]; then
+            echo "You forgot to run `npm run build` 🤦!"
+            exit 1
+          else
+            echo "No changes 🎉"
+          fi
       # - run: npm test
       #   env:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
