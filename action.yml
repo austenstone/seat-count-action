@@ -2,8 +2,8 @@ name: Seat Count Action
 author: Austen Stone
 description: Count the remaining seats in an organization.
 branding:
-  icon: "plus"
-  color: "blue"
+  icon: "percent"
+  color: "orange"
 
 inputs:
   github-token:
