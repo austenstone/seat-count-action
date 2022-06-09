@@ -14,5 +14,12 @@ jobs:
         with:
           org: octodemo
           github-token: ${{secrets.TOKEN}}
-      - run: echo ${{steps.seats.outputs.percentage}}% of seats used.
-      - run: echo ${{steps.seats.outputs.remaining}} seats remaining.
+    outputs:
+      percentage: ${{ steps.seats.outputs.percentage }}
+      remaining: ${{ steps.seats.outputs.remaining }}
+  print:
+    needs: [seats]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "{{ steps.seats.outputs.percentage }}% of seats used."
+      - run: echo "{{ steps.seats.outputs.remaining }} seats remaining"
