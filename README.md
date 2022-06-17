@@ -21,7 +21,7 @@ on:
     - cron: 0 0 * * *
 
 jobs:
-  run:
+  seats:
     runs-on: ubuntu-latest
     steps:
       - uses: austenstone/seat-count-action@main
