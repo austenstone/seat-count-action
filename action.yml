@@ -1,4 +1,4 @@
-name: Seat Count Action
+name: Seat Count
 author: Austen Stone
 description: Count the remaining seats in an organization.
 branding:
