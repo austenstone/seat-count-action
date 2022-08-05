@@ -1,6 +1,8 @@
 # Seat Count Action
 
-A simple [Action](https://docs.github.com/en/actions) to count the remaining seats in an organization. It is intended to be used in conjunction with other actions to do something like notify the user when there are less than 10 seats remaining.
+A simple [Action](https://docs.github.com/en/actions) to count the remaining seats in an GitHub plan. It is intended to be used in conjunction with other actions to do something like notify the user when there are less than 10 seats remaining.
+
+The values output from this action could be from the organization or the enterprise depending on the [GitHub plan](https://github.com/pricing).
 
 ## Usage
 Create a workflow (eg: `.github/workflows/seat-count.yml`). See [Creating a Workflow file](https://help.github.com/en/articles/configuring-a-workflow#creating-a-workflow-file).

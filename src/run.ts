@@ -1,5 +1,6 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
+import { Endpoints } from '@octokit/types';
 
 interface Input {
   token: string;
@@ -18,8 +19,8 @@ const run = async (): Promise<void> => {
     const input = getInputs();
     const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
-    const response = await octokit.request(`GET /orgs/${input.org}`);
-    const plan = response.data.plan;
+    const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
+    const plan = orgResponse.data.plan;
 
     if (plan) {
       core.setOutput('name', plan.name);
