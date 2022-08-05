@@ -21,9 +21,9 @@ outputs:
   seats:
     description: The total number of seats
   percentage:
-    description: Threshold percentage of seats
+    description: The percentage of total seats used
   remaining:
-    description: Threshold remaining seats
+    description: The number of remaining seats
   name:
     description: The name of the plan
   space:
