@@ -29,6 +29,7 @@ jobs:
       - uses: ./
         id: seats
         with:
+          enterprise: octodemo
           github-token: ${{secrets.TOKEN}}
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
