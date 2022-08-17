@@ -1,6 +1,6 @@
 name: Seat Count
 author: Austen Stone
-description: Count the remaining seats in an organization.
+description: Count the remaining seats in your GitHub plan.
 branding:
   icon: "percent"
   color: "orange"
