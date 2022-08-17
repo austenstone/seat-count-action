@@ -1,0 +1,53 @@
+name: Run
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  dump_contexts_to_log:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dump GitHub context
+        id: github_context_step
+        run: echo '${{ toJSON(github) }}'
+      - name: Dump job context
+        run: echo '${{ toJSON(job) }}'
+      - name: Dump steps context
+        run: echo '${{ toJSON(steps) }}'
+      - name: Dump runner context
+        run: echo '${{ toJSON(runner) }}'
+      - name: Dump strategy context
+        run: echo '${{ toJSON(strategy) }}'
+      - name: Dump matrix context
+        run: echo '${{ toJSON(matrix) }}'
+  
+  seats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        id: seats
+        with:
+          github-token: ${{secrets.TOKEN}}
+    outputs:
+      percentage: ${{steps.seats.outputs.percentage}}
+      remaining: ${{steps.seats.outputs.remaining}}
+  print:
+    needs: [seats]
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "${{needs.seats.outputs.percentage}}% of seats used."
+      - run: echo "${{needs.seats.outputs.remaining}} seats remaining"
+  more-than-50:
+    needs: [seats]
+    if: needs.seats.outputs.percentage > 50
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo More than 50% of seats used.
+  less-than-50:
+    needs: [seats]
+    if: needs.seats.outputs.percentage < 50
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo Less than 50% of seats used.
