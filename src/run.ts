@@ -1,6 +1,5 @@
 import * as core from '@actions/core';
 import * as github from '@actions/github';
-import { Endpoints } from '@octokit/types';
 
 interface Input {
   token: string;
