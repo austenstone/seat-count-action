@@ -16,40 +16,36 @@ export function getInputs(): Input {
 }
 
 const run = async (): Promise<void> => {
-  try {
-    const input = getInputs();
-    const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
+  const input = getInputs();
+  const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
-    let plan;
-    if (input.server) {
-      const entResponse = await octokit.request(`GET /enterprise/settings/license`);
-      plan = {
-        seats: entResponse.data.seats,
-        filled_seats: entResponse.data.seats_used,
-      }
-    } else if (input.org) {
-      const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
-      plan = orgResponse.data.plan;
-    } else {
-      throw new Error('No org specified and server is not set to true');
+  let plan;
+  if (input.server) {
+    const entResponse = await octokit.request(`GET /enterprise/settings/license`);
+    plan = {
+      seats: entResponse.data.seats,
+      filled_seats: entResponse.data.seats_used,
     }
+  } else if (input.org) {
+    const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
+    plan = orgResponse.data.plan;
+  } else {
+    throw new Error('No org specified and server is not set to true');
+  }
 
-    if (plan) {
-      core.setOutput('name', plan.name);
-      core.setOutput('space', plan.space);
-      core.setOutput('private_repos', plan.private_repos);
-      core.setOutput('filled_seats', plan.filled_seats);
-      core.setOutput('seats', plan.seats);
+  if (plan) {
+    core.setOutput('name', plan.name);
+    core.setOutput('space', plan.space);
+    core.setOutput('private_repos', plan.private_repos);
+    core.setOutput('filled_seats', plan.filled_seats);
+    core.setOutput('seats', plan.seats);
 
-      if (plan.filled_seats && plan.seats) {
-        const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
-        core.setOutput('percentage', percentage);
-        const remaining = plan.seats - plan.filled_seats;
-        core.setOutput('remaining', remaining);
-      }
+    if (plan.filled_seats && plan.seats) {
+      const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
+      core.setOutput('percentage', percentage);
+      const remaining = plan.seats - plan.filled_seats;
+      core.setOutput('remaining', remaining);
     }
-  } catch (error) {
-    core.setFailed(error instanceof Error ? error.message : JSON.stringify(error))
   }
 };
 
