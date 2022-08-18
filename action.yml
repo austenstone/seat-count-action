@@ -14,6 +14,10 @@ inputs:
     description: The org to use for the action
     default: ${{ github.event.organization.login }}
     required: false
+  server:
+    description: Weither to use GHES API
+    default: "false"
+    required: false
 
 outputs:
   filled_seats:
