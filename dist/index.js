@@ -8760,15 +8760,18 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     let plan;
     if (github.context.serverUrl.includes('://github.com')) {
         const orgResponse = yield octokit.request(`GET /orgs/${input.org}`);
+        console.debug(orgResponse);
         plan = orgResponse.data.plan;
     }
     else {
         const entResponse = yield octokit.request(`GET /enterprise/settings/license`);
+        console.debug(entResponse);
         plan = {
             seats: entResponse.data.seats,
             filled_seats: entResponse.data.seats_used,
         };
     }
+    console.debug(plan);
     if (plan) {
         core.setOutput('name', plan.name);
         core.setOutput('space', plan.space);
