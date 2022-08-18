@@ -4,14 +4,12 @@ import * as github from '@actions/github';
 interface Input {
   token: string;
   org: string;
-  server: boolean;
 }
 
 export function getInputs(): Input {
   const result = {} as Input;
   result.token = core.getInput('github-token');
   result.org = core.getInput('org');
-  result.server = core.getBooleanInput('server');
   return result;
 }
 
@@ -20,17 +18,15 @@ const run = async (): Promise<void> => {
   const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
   let plan;
-  if (input.server) {
+  if (github.context.serverUrl.includes('://github.com')) {
+    const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
+    plan = orgResponse.data.plan;
+  } else {
     const entResponse = await octokit.request(`GET /enterprise/settings/license`);
     plan = {
       seats: entResponse.data.seats,
       filled_seats: entResponse.data.seats_used,
     }
-  } else if (input.org) {
-    const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
-    plan = orgResponse.data.plan;
-  } else {
-    throw new Error('No org specified and server is not set to true');
   }
 
   if (plan) {

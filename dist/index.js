@@ -8751,7 +8751,6 @@ function getInputs() {
     const result = {};
     result.token = core.getInput('github-token');
     result.org = core.getInput('org');
-    result.server = core.getBooleanInput('server');
     return result;
 }
 exports.getInputs = getInputs;
@@ -8759,19 +8758,16 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     const input = getInputs();
     const octokit = github.getOctokit(input.token);
     let plan;
-    if (input.server) {
+    if (github.context.serverUrl.includes('://github.com')) {
+        const orgResponse = yield octokit.request(`GET /orgs/${input.org}`);
+        plan = orgResponse.data.plan;
+    }
+    else {
         const entResponse = yield octokit.request(`GET /enterprise/settings/license`);
         plan = {
             seats: entResponse.data.seats,
             filled_seats: entResponse.data.seats_used,
         };
-    }
-    else if (input.org) {
-        const orgResponse = yield octokit.request(`GET /orgs/${input.org}`);
-        plan = orgResponse.data.plan;
-    }
-    else {
-        throw new Error('No org specified and server is not set to true');
     }
     if (plan) {
         core.setOutput('name', plan.name);
