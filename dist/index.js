@@ -8795,7 +8795,7 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     }
     catch (error) {
         core.startGroup(error instanceof Error ? error.message : JSON.stringify(error));
-        core.info(JSON.stringify(error));
+        core.info(JSON.stringify(error, null, 2));
         core.endGroup();
     }
 });
