@@ -8760,18 +8760,18 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
     let plan;
     if (github.context.serverUrl.includes('://github.com')) {
         const orgResponse = yield octokit.request(`GET /orgs/${input.org}`);
-        console.debug(orgResponse);
+        core.debug(JSON.stringify({ orgResponse }));
         plan = orgResponse.data.plan;
     }
     else {
         const entResponse = yield octokit.request(`GET /enterprise/settings/license`);
-        console.debug(entResponse);
+        core.debug(JSON.stringify({ entResponse }));
         plan = {
             seats: entResponse.data.seats,
             filled_seats: entResponse.data.seats_used,
         };
     }
-    console.debug(plan);
+    core.debug(JSON.stringify({ plan }));
     if (plan) {
         core.setOutput('name', plan.name);
         core.setOutput('space', plan.space);
@@ -8779,10 +8779,16 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
         core.setOutput('filled_seats', plan.filled_seats);
         core.setOutput('seats', plan.seats);
         if (plan.filled_seats && plan.seats) {
-            const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
-            core.setOutput('percentage', percentage);
-            const remaining = plan.seats - plan.filled_seats;
-            core.setOutput('remaining', remaining);
+            if (plan.seats === 'unlimited') {
+                core.setOutput('percentage', 0);
+                core.setOutput('remaining', 'unlimited');
+            }
+            else {
+                const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
+                core.setOutput('percentage', percentage);
+                const remaining = plan.seats - plan.filled_seats;
+                core.setOutput('remaining', remaining);
+            }
         }
     }
 });
