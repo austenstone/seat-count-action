@@ -1,4 +1,4 @@
-name: Run
+name: Run Server
 on:
   push:
   pull_request:
@@ -21,7 +21,7 @@ jobs:
         run: echo '${{ toJSON(strategy) }}'
       - name: Dump matrix context
         run: echo '${{ toJSON(matrix) }}'
-        
+
   seats:
     runs-on: ubuntu-latest
     steps:
