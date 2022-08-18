@@ -19,7 +19,7 @@ const run = async (): Promise<void> => {
     const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
     let plan;
-    if (github.context.serverUrl.includes('://github.com')) {
+    if (github.context.serverUrl.match(/http[s]?:\/\/github.com/g)) {
       const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
       core.debug(JSON.stringify({orgResponse}))
       plan = orgResponse.data.plan;
