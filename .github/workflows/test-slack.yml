@@ -17,7 +17,8 @@ jobs:
   seat-count-slack:
     uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
     with:
-      github-token: ${{secrets.TOKEN}}
-      slack-bot-token: ${{secrets.SLACK_BOT_TOKEN}}
+      github-token: ${{ secrets.TOKEN }}
+      slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
       channel-id: 'C040LDABVHQ'
       seats-remaining: 10
+    secrets: inherit
