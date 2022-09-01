@@ -5,20 +5,12 @@ on:
   workflow_dispatch:
 
 jobs:
-  reusable_workflow_job:
-    runs-on: ubuntu-latest
-    environment: production
-    steps:
-      - uses: ./.github/workflows/my-action
-        with:
-          username: ${{ inputs.username }}
-          token: ${{ secrets.envPAT }}
-  # seat-count-slack:
-  #   uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
-  #   with:
-  #     org: octodemo
-  #     github-token: ${{ secrets.TOKEN }}
-  #     slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
-  #     channel-id: 'C040LDABVHQ'
-  #     seats-remaining: 10
-  #   secrets: inherit
+  seat-count-slack:
+    uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
+    with:
+      org: octodemo
+      github-token: ${{ secrets.TOKEN }}
+      slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}
+      channel-id: 'C040LDABVHQ'
+      seats-remaining: 10
+    secrets: inherit
