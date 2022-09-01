@@ -10,7 +10,7 @@ jobs:
   seat-count-slack:
     uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
     with:
-      channel-id: 'C040LDABVHQ'
+      slack-channel-id: 'C040LDABVHQ'
       seats-remaining: 10
     secrets:
       # A GitHub PAT

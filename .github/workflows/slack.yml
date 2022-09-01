@@ -6,7 +6,7 @@ on:
         required: true
         description: The organization to check seats.
         type: string
-      channel-id:
+      slack-channel-id:
         required: true
         description: The Slack channel id, channel name, or user id to post message.
         type: string
@@ -50,7 +50,7 @@ jobs:
         with:
           # Slack channel id, channel name, or user id to post message.
           # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: ${{inputs.channel-id}}
+          channel-id: ${{inputs.slack-channel-id}}
           slack-message: "Only ${{steps.seats.outputs.remaining}} GitHub seats remaining!"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
