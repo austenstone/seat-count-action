@@ -15,7 +15,7 @@ jobs:
         org: octodemo
         github-token: ${{ secrets.TOKEN }}
     - name: Send mail
-      # if: steps.seats.outputs.remaining <= 10
+      if: steps.seats.outputs.remaining <= 10
       uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
@@ -26,3 +26,4 @@ jobs:
         to: miltonlaxer@gmail.com
         from: GitHub Actions # <user@example.com>
         body: "Only ${{ steps.seats.outputs.remaining }} GitHub seats remaining!"
+        

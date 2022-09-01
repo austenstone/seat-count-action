@@ -44,9 +44,15 @@ jobs:
 You can send a notifcation using any medium.
 
 ### [slack-send](https://github.com/marketplace/actions/slack-send)
+
+[example](./.github/workflow-templates/slack.yml)
+
 ![image](https://user-images.githubusercontent.com/22425467/187817355-b4da99fd-3759-49f4-a9fd-42575b7c47a8.png)
 
+
 ### [send-email](https://github.com/marketplace/actions/send-email)
+
+[example](./.github/workflow-templates/email.yml)
 
 ### [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
 
