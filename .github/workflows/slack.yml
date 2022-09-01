@@ -35,7 +35,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Seats Remaining
-        uses: austenstone/seat-count-action
+        uses: austenstone/seat-count-action@main
         id: seats
         with:
           org: ${{ inputs.org }}
