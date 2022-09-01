@@ -40,6 +40,10 @@ jobs:
         with:
           org: ${{inputs.org}}
           github-token: ${{secrets.TOKEN}}
+      - name: Print
+        run: |
+          echo "${{outputs.percentage}}% of seats used."
+          echo "${{outputs.remaining}} seats remaining"
       - name: Post to a Slack channel
         if: steps.seats.outputs.remaining > inputs.seats-remaining
         uses: slackapi/slack-github-action@v1.21.0
