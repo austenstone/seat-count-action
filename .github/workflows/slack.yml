@@ -2,6 +2,10 @@ name: Slack
 on:
   workflow_call:
     inputs:
+      org:
+        required: true
+        description: The organization to check seats.
+        type: string
       github-token:
         required: false
         description: GitHub PAT
@@ -36,25 +40,18 @@ jobs:
       - uses: ./
         id: seats
         with:
-          org: octodemo
+          org: ${{inputs.org}}
           github-token: ${{secrets.TOKEN || inputs.github-token}}
+      - name: Post to a Slack channel
+        if: steps.seats.outputs.remaining > inputs.seats-remaining
+        uses: slackapi/slack-github-action@v1.21.0
+        with:
+          # Slack channel id, channel name, or user id to post message.
+          # See also: https://api.slack.com/methods/chat.postMessage#channels
+          channel-id: ${{inputs.channel-id}}
+          slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
+        env:
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || inputs.slack-bot-token }}
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
-  less-than-10:
-    name: Slack Notification
-    needs: [seats]
-    if: needs.seats.outputs.remaining > inputs.seats-remaining
-    runs-on: ubuntu-latest
-    steps:
-    - name: Post to a Slack channel
-      id: slack
-      uses: slackapi/slack-github-action@v1.21.0
-      with:
-        # Slack channel id, channel name, or user id to post message.
-        # See also: https://api.slack.com/methods/chat.postMessage#channels
-        channel-id: ${{inputs.channel-id}}
-        # For posting a simple plain text message
-        slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
-      env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || inputs.slack-bot-token }}
