@@ -21,4 +21,3 @@ jobs:
       slack-bot-token: ${{secrets.SLACK_BOT_TOKEN}}
       channel-id: 'C040LDABVHQ'
       seats-remaining: 10
-    secrets: inherit
