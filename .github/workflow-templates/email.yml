@@ -7,7 +7,7 @@ jobs:
   seat-count-email:
     steps:
     - name: Get Seats Remaining
-      uses: austenstone/seat-count-action
+      uses: austenstone/seat-count-action@main
       id: seats
       with:
         org: octodemo
