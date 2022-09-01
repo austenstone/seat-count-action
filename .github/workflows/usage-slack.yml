@@ -8,4 +8,6 @@ jobs:
   seat-count-slack:
     name: CI/CD
     uses: ./.github/workflows/slack.yml
+    with:
+      channel-id: 'C040LDABVHQ'
     secrets: inherit
