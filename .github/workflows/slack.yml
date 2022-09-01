@@ -26,11 +26,9 @@ on:
       percentage:
         value: ${{jobs.seats.outputs.percentage}}
         description: The percentage of seats used
-        type: number
       remaining:
         value: ${{jobs.seats.outputs.remaining}}
         description: The number of seats remaining
-        type: number
 
 jobs:
   seats:
