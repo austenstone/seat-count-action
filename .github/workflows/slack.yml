@@ -47,4 +47,4 @@ jobs:
         # For posting a simple plain text message
         slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
       env:
-        SLACK_BOT_TOKEN: ${{ inputs.SLACK_BOT_TOKEN }}
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
