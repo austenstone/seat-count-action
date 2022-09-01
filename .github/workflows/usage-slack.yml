@@ -30,6 +30,6 @@ jobs:
         # See also: https://api.slack.com/methods/chat.postMessage#channels
         channel-id: 'C040LDABVHQ'
         # For posting a simple plain text message
-        slack-message: "Only GitHub ${{steps.seats.outputs.remaining}} seats remaining!"
+        slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
       env:
         SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
