@@ -17,11 +17,6 @@ on:
         default: 123
         description: The Slack channel id, channel name, or user id to post message.
         type: string
-      slack-message:
-        required: false
-        default: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
-        description: The message to send to Slack
-        type: string
       seats-remaining:
         required: false
         default: 10
@@ -63,6 +58,6 @@ jobs:
         # See also: https://api.slack.com/methods/chat.postMessage#channels
         channel-id: ${{inputs.channel-id}}
         # For posting a simple plain text message
-        slack-message: ${{inputs.slack-message}}
+        slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
       env:
         SLACK_BOT_TOKEN: ${{ inputs.SLACK_BOT_TOKEN }}
