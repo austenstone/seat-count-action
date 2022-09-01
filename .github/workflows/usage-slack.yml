@@ -1,13 +1,11 @@
-name: Slack Usage
+name: Seat Count Slack Notification
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
 
 jobs:
   seat-count-slack:
-    name: Seat Count
-    uses: ./.github/workflows/slack.yml
+    uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
     with:
       channel-id: 'C040LDABVHQ'
       seats-remaining: 10
