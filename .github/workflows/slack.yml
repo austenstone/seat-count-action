@@ -1,8 +1,41 @@
 name: Slack
 on:
-  push:
-  pull_request:
-  workflow_dispatch:
+  workflow_call:
+    inputs:
+      github-token:
+        required: false
+        default: ${{secrets.TOKEN}}
+        description: The GitHub token
+        type: string
+      SLACK_BOT_TOKEN:
+        required: true
+        default: ${{ secrets.SLACK_BOT_TOKEN }}
+        description: Slack bot token
+        type: string
+      channel-id:
+        required: true
+        default: ${{ secrets.SLACK_CHANNEL_ID }}
+        description: The Slack channel id, channel name, or user id to post message.
+        type: string
+      slack-message:
+        required: false
+        default: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
+        description: The message to send to Slack
+        type: string
+      seats-remaining:
+        required: false
+        default: 10
+        description: The number of seats that triggers the message
+        type: number
+    outputs:
+      percentage:
+        default: ${{jobs.seats.outputs.percentage}}
+        description: The percentage of seats used
+        type: number
+      remaining:
+        default: ${{jobs.seats.outputs.remaining}}
+        description: The number of seats remaining
+        type: number
 
 jobs:
   seats:
@@ -19,7 +52,7 @@ jobs:
       remaining: ${{steps.seats.outputs.remaining}}
   less-than-10:
     needs: [seats]
-    if: needs.seats.outputs.remaining > 10
+    if: needs.seats.outputs.remaining > secrets.seats-remaining
     runs-on: ubuntu-latest
     steps:
     - name: Post to a Slack channel
@@ -28,8 +61,8 @@ jobs:
       with:
         # Slack channel id, channel name, or user id to post message.
         # See also: https://api.slack.com/methods/chat.postMessage#channels
-        channel-id: 'C040LDABVHQ'
+        channel-id: ${{inputs.channel-id}}
         # For posting a simple plain text message
-        slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
+        slack-message: ${{inputs.slack-message}}
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_BOT_TOKEN: ${{ inputs.SLACK_BOT_TOKEN }}
