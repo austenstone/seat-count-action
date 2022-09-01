@@ -4,17 +4,17 @@ on:
     inputs:
       github-token:
         required: false
-        default: 123
+        default: ${{ secrets.TOKEN }}
         description: The GitHub token
         type: string
       SLACK_BOT_TOKEN:
-        required: true
-        default: 321
+        required: false
+        default: ${{ secrets.SLACK_BOT_TOKEN }}
         description: Slack bot token
         type: string
       channel-id:
-        required: true
-        default: 123
+        required: false
+        default: ${{ secrets.SLACK_CHANNEL_ID }}
         description: The Slack channel id, channel name, or user id to post message.
         type: string
       seats-remaining:
