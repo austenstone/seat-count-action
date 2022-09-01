@@ -7,12 +7,15 @@ jobs:
   seat-count-slack:
     uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
     with:
+      org: octodemo
+      # Slack channel id, channel name, or user id to post message.
+      # See: https://api.slack.com/methods/chat.postMessage#channels
       slack-channel-id: 'C040LDABVHQ'
       seats-remaining: 10
     secrets:
       # A GitHub PAT
-      # See https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+      # See: https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
       github-token: ${{ secrets.TOKEN }}
       # A slack bot token
-      # See https://github.com/marketplace/actions/slack-send#setup-1
+      # See: https://github.com/marketplace/actions/slack-send#setup-1
       slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}

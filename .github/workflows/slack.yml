@@ -17,10 +17,10 @@ on:
         type: number
     outputs:
       percentage:
-        value: ${{jobs.seats.outputs.percentage}}
+        value: ${{ jobs.seats.outputs.percentage }}
         description: The percentage of seats used
       remaining:
-        value: ${{jobs.seats.outputs.remaining}}
+        value: ${{ jobs.seats.outputs.remaining }}
         description: The number of seats remaining
     secrets:
       github-token:
@@ -34,23 +34,21 @@ jobs:
     name: Get Seats Remaining
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: ./
+      - name: Get Seats Remaining
+        uses: austenstone/seat-count-action
         id: seats
         with:
-          org: ${{inputs.org}}
-          github-token: ${{secrets.github-token}}
+          org: ${{ inputs.org }}
+          github-token: ${{ secrets.github-token }}
       - name: Print
         run: |
-          echo "${{steps.seats.outputs.percentage}}% of seats used."
-          echo "${{steps.seats.outputs.remaining}} seats remaining"
+          echo "${{ steps.seats.outputs.percentage }}% of seats used."
+          echo "${{ steps.seats.outputs.remaining }} seats remaining"
       - name: Post to a Slack channel
         if: steps.seats.outputs.remaining <= inputs.seats-remaining
         uses: slackapi/slack-github-action@v1.21.0
         with:
-          # Slack channel id, channel name, or user id to post message.
-          # See also: https://api.slack.com/methods/chat.postMessage#channels
-          channel-id: ${{inputs.slack-channel-id}}
-          slack-message: "Only ${{steps.seats.outputs.remaining}} GitHub seats remaining!"
+          channel-id: ${{ inputs.slack-channel-id }}
+          slack-message: "Only ${{ steps.seats.outputs.remaining }} GitHub seats remaining!"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
