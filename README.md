@@ -33,17 +33,22 @@ jobs:
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
-  more-than-90-percent:
+  less-than-10-percent:
     needs: [seats]
-    if: needs.seats.outputs.percentage > 90
+    if: needs.seats.outputs.remaining < 10
     runs-on: ubuntu-latest
     steps:
-      - run: echo More than 90% of seats used!
+      - run: echo "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
 ```
 ## Example Notification Actions
-- [slack-send](https://github.com/marketplace/actions/slack-send)
-- [send-email](https://github.com/marketplace/actions/send-email)
-- [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
+You can send a notifcation using any medium.
+
+### [slack-send](https://github.com/marketplace/actions/slack-send)
+![image](https://user-images.githubusercontent.com/22425467/187817355-b4da99fd-3759-49f4-a9fd-42575b7c47a8.png)
+
+### [send-email](https://github.com/marketplace/actions/send-email)
+
+### [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
 
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):
