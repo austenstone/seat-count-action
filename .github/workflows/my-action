@@ -1,0 +1,14 @@
+on:
+  workflow_call:
+    inputs:
+      username:
+        required: true
+        type: string
+    secrets:
+      envPAT:
+        required: true
+
+jobs:
+  runs-on: ubuntu-latest
+  steps:
+    - echo "Hello, ${{inputs.username}}!"
