@@ -6,14 +6,6 @@ on:
         required: true
         description: The organization to check seats.
         type: string
-      github-token:
-        required: false
-        description: GitHub PAT
-        type: string
-      slack-bot-token:
-        required: false
-        description: Slack bot token
-        type: string
       channel-id:
         required: true
         description: The Slack channel id, channel name, or user id to post message.
@@ -30,7 +22,13 @@ on:
       remaining:
         value: ${{jobs.seats.outputs.remaining}}
         description: The number of seats remaining
-
+    secrets:
+      github-token:
+        required: false
+        description: GitHub PAT
+      slack-bot-token:
+        required: false
+        description: Slack bot token
 jobs:
   seats:
     name: Get Seats Remaining
@@ -41,7 +39,7 @@ jobs:
         id: seats
         with:
           org: ${{inputs.org}}
-          github-token: ${{secrets.TOKEN || inputs.github-token}}
+          github-token: ${{secrets.TOKEN}}
       - name: Post to a Slack channel
         if: steps.seats.outputs.remaining > inputs.seats-remaining
         uses: slackapi/slack-github-action@v1.21.0
@@ -51,7 +49,7 @@ jobs:
           channel-id: ${{inputs.channel-id}}
           slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
         env:
-          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || inputs.slack-bot-token }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
