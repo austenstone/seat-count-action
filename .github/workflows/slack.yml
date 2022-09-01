@@ -45,7 +45,7 @@ jobs:
       remaining: ${{steps.seats.outputs.remaining}}
   less-than-10:
     needs: [seats]
-    if: needs.seats.outputs.remaining > secrets.seats-remaining
+    if: needs.seats.outputs.remaining > inputs.seats-remaining
     runs-on: ubuntu-latest
     steps:
     - name: Post to a Slack channel
