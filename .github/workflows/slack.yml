@@ -54,6 +54,3 @@ jobs:
           slack-message: "Only ${{steps.seats.outputs.remaining}} GitHub seats remaining!"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
-    outputs:
-      percentage: ${{steps.seats.outputs.percentage}}
-      remaining: ${{steps.seats.outputs.remaining}}
