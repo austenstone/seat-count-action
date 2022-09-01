@@ -39,7 +39,7 @@ jobs:
         id: seats
         with:
           org: ${{inputs.org}}
-          github-token: ${{secrets.TOKEN}}
+          github-token: ${{secrets.github-token}}
       - name: Print
         run: |
           echo "${{steps.seats.outputs.percentage}}% of seats used."
