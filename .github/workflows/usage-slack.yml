@@ -1,4 +1,4 @@
-name: CI/CD
+name: Slack Usage
 on:
   push:
   pull_request:
