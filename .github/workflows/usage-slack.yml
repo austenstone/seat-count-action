@@ -10,5 +10,5 @@ jobs:
     uses: ./.github/workflows/slack.yml
     with:
       channel-id: 'C040LDABVHQ'
-      SLACK_BOT_TOKEN: ${{secrets.SLACK_BOT_TOKEN}}
+      seats-remaining: 10
     secrets: inherit

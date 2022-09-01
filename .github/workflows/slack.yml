@@ -2,10 +2,6 @@ name: Slack
 on:
   workflow_call:
     inputs:
-      SLACK_BOT_TOKEN:
-        required: false
-        description: Slack bot token
-        type: string
       channel-id:
         required: true
         description: The Slack channel id, channel name, or user id to post message.
