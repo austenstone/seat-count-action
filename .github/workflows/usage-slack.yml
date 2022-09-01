@@ -6,7 +6,7 @@ on:
 
 jobs:
   seat-count-slack:
-    name: CI/CD
+    name: Seat Count Slack Notification
     uses: ./.github/workflows/slack.yml
     with:
       channel-id: 'C040LDABVHQ'
