@@ -42,8 +42,8 @@ jobs:
           github-token: ${{secrets.TOKEN}}
       - name: Print
         run: |
-          echo "${{outputs.percentage}}% of seats used."
-          echo "${{outputs.remaining}} seats remaining"
+          echo "${{steps.seats.outputs.percentage}}% of seats used."
+          echo "${{steps.seats.outputs.remaining}} seats remaining"
       - name: Post to a Slack channel
         if: steps.seats.outputs.remaining > inputs.seats-remaining
         uses: slackapi/slack-github-action@v1.21.0
@@ -51,7 +51,7 @@ jobs:
           # Slack channel id, channel name, or user id to post message.
           # See also: https://api.slack.com/methods/chat.postMessage#channels
           channel-id: ${{inputs.channel-id}}
-          slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
+          slack-message: "Only ${{steps.seats.outputs.remaining}} GitHub seats remaining!"
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
     outputs:
