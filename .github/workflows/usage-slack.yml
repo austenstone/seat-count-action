@@ -7,7 +7,7 @@ on:
 jobs:
   build-test-deploy-release:
     name: CI/CD
-    uses: ./.github/workflows/slack.yml@main
+    uses: ./.github/workflows/slack.yml
     with:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       channel-id: 'C040LDABVHQ'
