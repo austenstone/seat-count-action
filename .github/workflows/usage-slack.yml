@@ -11,4 +11,3 @@ jobs:
     with:
       SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
       channel-id: 'C040LDABVHQ'
-    secrets: inherit
