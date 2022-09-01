@@ -1,4 +1,4 @@
-name: Test Email
+name: Test Jira
 on:
   push:
   pull_request:
