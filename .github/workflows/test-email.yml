@@ -1,4 +1,4 @@
-name: Seat Count Email Notification
+name: Test Email
 on:
   push:
   pull_request:
