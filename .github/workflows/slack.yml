@@ -4,7 +4,6 @@ on:
     inputs:
       SLACK_BOT_TOKEN:
         required: false
-        default: ${{ secrets.SLACK_BOT_TOKEN }}
         description: Slack bot token
         type: string
       channel-id:
