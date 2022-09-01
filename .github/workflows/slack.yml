@@ -2,6 +2,14 @@ name: Slack
 on:
   workflow_call:
     inputs:
+      github-token:
+        required: false
+        description: GitHub PAT
+        type: string
+      slack-bot-token:
+        required: false
+        description: Slack bot token
+        type: string
       channel-id:
         required: true
         description: The Slack channel id, channel name, or user id to post message.
@@ -29,7 +37,7 @@ jobs:
         id: seats
         with:
           org: octodemo
-          github-token: ${{secrets.TOKEN}}
+          github-token: ${{secrets.TOKEN || inputs.github-token}}
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
@@ -49,4 +57,4 @@ jobs:
         # For posting a simple plain text message
         slack-message: "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
       env:
-        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+        SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN || inputs.slack-bot-token }}

@@ -1,3 +1,12 @@
+# A reusable workflow that sends a slack notification
+# when seats reach a given threshold.
+
+# Set the following secrets: TOKEN, SLACK_BOT_TOKEN
+# TOKEN (A GitHub PAT)
+# See https://docs.github.com/en/enterprise-cloud@latest/authentication/keeping-your-account-and-data-secure/creating-a-personal-access-token
+# SLACK_BOT_TOKEN (A slack bot token)
+# See https://github.com/marketplace/actions/slack-send#setup-1
+
 name: Seat Count Slack Notification
 on:
   schedule:
@@ -7,6 +16,8 @@ jobs:
   seat-count-slack:
     uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
     with:
+      github-token: ${{secrets.TOKEN}}
+      slack-bot-token: ${{secrets.SLACK_BOT_TOKEN}}
       channel-id: 'C040LDABVHQ'
       seats-remaining: 10
     secrets: inherit
