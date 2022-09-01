@@ -49,10 +49,11 @@ You can send a notifcation using any medium.
 
 ![image](https://user-images.githubusercontent.com/22425467/187817355-b4da99fd-3759-49f4-a9fd-42575b7c47a8.png)
 
-
 ### [send-email](https://github.com/marketplace/actions/send-email)
 
 [example](./.github/workflow-templates/email.yml)
+
+![image](https://user-images.githubusercontent.com/22425467/187832679-315b53c7-3903-4103-9e85-509e2ae02b18.png)
 
 ### [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
 
