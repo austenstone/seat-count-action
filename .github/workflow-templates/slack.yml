@@ -1,6 +1,3 @@
-# A reusable workflow that sends a slack notification
-# when seats reach a given threshold.
-
 name: Seat Count Slack Notification
 on:
   schedule:
