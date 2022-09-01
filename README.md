@@ -57,6 +57,10 @@ You can send a notifcation using any medium.
 
 ### [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
 
+[example](./.github/workflow-templates/jira.yml)
+
+![image](https://user-images.githubusercontent.com/22425467/187834167-3b6879d9-788e-4e76-b8e2-9710b2600b81.png)
+
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):
 
