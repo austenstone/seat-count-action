@@ -20,7 +20,7 @@ const run = async (): Promise<void> => {
   const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
   let plan;
-  let isDotCom = github.context.serverUrl.match(/http[s]?:\/\/github.com/g);
+  const isDotCom = github.context.serverUrl.match(/http[s]?:\/\/github.com/g);
   if (input.enterprise) {
     const entResponse = await octokit.request(`GET /enterprises/${input.enterprise}/consumed-licenses`);
     plan = {
