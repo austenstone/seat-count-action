@@ -1,4 +1,5 @@
 name: Test Jira
+permissions: {}
 on:
   push:
   pull_request:
