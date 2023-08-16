@@ -68,6 +68,7 @@ Various inputs are defined in [`action.yml`](action.yml):
 | --- | - | - |
 | github&#x2011;token | Token to use to authorize. | ${{&nbsp;github.token&nbsp;}} |
 | org | The org to use for the action. | ${{&nbsp;github.event.organization.login&nbsp;}} |
+| enterprise | The enterprise to use for the action. | N/A |
 
 ## ⬅️ Outputs
 | Name | Description |
