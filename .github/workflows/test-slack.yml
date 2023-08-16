@@ -1,0 +1,16 @@
+name: Test Slack
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  seat-count-slack:
+    uses: austenstone/seat-count-action/.github/workflows/slack.yml@main
+    with:
+      org: octodemo
+      seats-remaining: 10
+      slack-channel-id: 'C040LDABVHQ'
+    secrets:
+      github-token: ${{ secrets.TOKEN }}
+      slack-bot-token: ${{ secrets.SLACK_BOT_TOKEN }}

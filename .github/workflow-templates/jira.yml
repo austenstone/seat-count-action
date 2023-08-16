@@ -1,0 +1,33 @@
+name: Seat Count Jira Notification
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  seat-count-jira:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Seats Remaining
+      uses: austenstone/seat-count-action@main
+      id: seats
+      with:
+        org: octodemo
+        github-token: ${{ secrets.TOKEN }}
+    - name: Login
+      uses: atlassian/gajira-login@master
+      env:
+        JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+        JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+    - name: Create
+      id: create
+      uses: atlassian/gajira-create@master
+      with:
+        project: SUP
+        issuetype: Task
+        summary: |
+          Only ${{ steps.seats.outputs.remaining }} GitHub seats remaining!
+        description: |
+          You are running out of GitHub seats!
+    - name: Log created issue
+      run: echo "Issue ${{ steps.create.outputs.issue }} was created"

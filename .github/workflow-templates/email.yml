@@ -1,0 +1,27 @@
+name: Seat Count Email Notification
+on:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  seat-count-email:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Seats Remaining
+      uses: austenstone/seat-count-action@main
+      id: seats
+      with:
+        org: octodemo
+        github-token: ${{ secrets.TOKEN }}
+    - name: Send mail
+      if: steps.seats.outputs.remaining <= 10
+      uses: dawidd6/action-send-mail@v3
+      with:
+        server_address: smtp.gmail.com
+        server_port: 465
+        username: ${{ secrets.MAIL_USERNAME }}
+        password: ${{ secrets.MAIL_PASSWORD }}
+        subject: Github Seat Count Notification
+        to: austenstone@github.com
+        from: GitHub Actions # <user@example.com>
+        body: "Only ${{ steps.seats.outputs.remaining }} GitHub seats remaining!"

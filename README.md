@@ -33,17 +33,33 @@ jobs:
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
-  more-than-90-percent:
+  less-than-10-percent:
     needs: [seats]
-    if: needs.seats.outputs.percentage > 90
+    if: needs.seats.outputs.remaining < 10
     runs-on: ubuntu-latest
     steps:
-      - run: echo More than 90% of seats used!
+      - run: echo "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
 ```
 ## Example Notification Actions
-- [slack-send](https://github.com/marketplace/actions/slack-send)
-- [send-email](https://github.com/marketplace/actions/send-email)
-- [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
+You can send a notifcation using any medium.
+
+### [slack-send](https://github.com/marketplace/actions/slack-send)
+
+[example](./.github/workflow-templates/slack.yml)
+
+![image](https://user-images.githubusercontent.com/22425467/187817355-b4da99fd-3759-49f4-a9fd-42575b7c47a8.png)
+
+### [send-email](https://github.com/marketplace/actions/send-email)
+
+[example](./.github/workflow-templates/email.yml)
+
+![image](https://user-images.githubusercontent.com/22425467/187832679-315b53c7-3903-4103-9e85-509e2ae02b18.png)
+
+### [jira-create-issue](https://github.com/marketplace/actions/jira-create-issue)
+
+[example](./.github/workflow-templates/jira.yml)
+
+![image](https://user-images.githubusercontent.com/22425467/187834167-3b6879d9-788e-4e76-b8e2-9710b2600b81.png)
 
 ## ➡️ Inputs
 Various inputs are defined in [`action.yml`](action.yml):

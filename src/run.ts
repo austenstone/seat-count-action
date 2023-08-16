@@ -8,49 +8,55 @@ interface Input {
 }
 
 export function getInputs(): Input {
-  const result = {} as Input;
-  result.token = core.getInput('github-token');
-  result.org = core.getInput('org');
-  result.enterprise = core.getInput('enterprise');
-  return result;
+  return {
+    token: core.getInput('github-token'),
+    org: core.getInput('org'),
+    enterprise: core.getInput('enterprise'),
+  };
 }
 
 const run = async (): Promise<void> => {
-  try {
-    const input = getInputs();
-    const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
+  const input = getInputs();
+  const octokit: ReturnType<typeof github.getOctokit> = github.getOctokit(input.token);
 
-    let plan;
-    if (input.enterprise) {
-      const entResponse = await octokit.request(`GET /enterprises/${input.enterprise}/consumed-licenses`);
-      plan = {
-        filled_seats: entResponse.data.total_seats_consumed,
-        seats: entResponse.data.total_seats_purchased
-      };
-    } else if (input.org) {
-      const orgResponse = await octokit.request(`GET /orgs/${input.org}`);
-      plan = orgResponse.data.plan;
-      if (plan) {
-        core.setOutput('name', plan.name);
-        core.setOutput('space', plan.space);
-        core.setOutput('private_repos', plan.private_repos);
-      }
-    } else {
-      throw new Error('No org or enterprise specified');
+  let plan;
+  let isDotCom = github.context.serverUrl.match(/http[s]?:\/\/github.com/g);
+  if (input.enterprise) {
+    const entResponse = await octokit.request(`GET /enterprises/${input.enterprise}/consumed-licenses`);
+    plan = {
+      filled_seats: entResponse.data.total_seats_consumed,
+      seats: entResponse.data.total_seats_purchased
+    };
+  } else if (isDotCom) {
+    const orgResponse = await octokit.rest.orgs.get({ org: input.org });
+    core.debug(JSON.stringify({ orgResponse }))
+    plan = orgResponse.data.plan;
+  } else {
+    const entResponse = await octokit.request(`GET /enterprise/settings/license`);
+    core.debug(JSON.stringify({ entResponse }))
+    plan = {
+      seats: entResponse.data.seats,
+      filled_seats: entResponse.data.seats_used,
     }
+  }
 
-    if (plan) {
-      core.setOutput('filled_seats', plan.filled_seats);
-      core.setOutput('seats', plan.seats);
-      if (plan.filled_seats && plan.seats) {
+  core.debug(JSON.stringify({ plan }))
+  if (plan) {
+    Object.keys(plan).forEach(key => core.setOutput(key, plan[key]));
+    if (plan.filled_seats && plan.seats) {
+      let percentage = 0, remaining = 0;
+      if (plan.seats === 'unlimited') {
+        core.setOutput('remaining', 'unlimited');
+        percentage = 0;
+      } else {
         const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
-        core.setOutput('percentage', percentage);
+        core.info(`${percentage}% of seats used`)
         const remaining = plan.seats - plan.filled_seats;
-        core.setOutput('remaining', remaining);
+        core.info(`${remaining} seats remaining`)
       }
+      core.setOutput('percentage', percentage);
+      core.setOutput('remaining', remaining);
     }
-  } catch (error) {
-    core.setFailed(error instanceof Error ? error.message : JSON.stringify(error))
   }
 };
 
