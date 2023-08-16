@@ -26,7 +26,7 @@ jobs:
   seats:
     runs-on: ubuntu-latest
     steps:
-      - uses: austenstone/seat-count-action@main
+      - uses: austenstone/seat-count-action@v3
         id: seats
         with:
           github-token: ${{secrets.TOKEN}}
