@@ -1,4 +1,5 @@
 name: Slack
+permissions: {}
 on:
   workflow_call:
     inputs:
