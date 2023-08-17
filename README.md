@@ -1,3 +1,5 @@
+[![OpenSSF Scorecard](https://api.securityscorecards.dev/projects/github.com/austenstone/seat-count-action/badge)](https://securityscorecards.dev/viewer/?uri=github.com/austenstone/seat-count-action)
+
 # Seat Count Action
 
 A simple [Action](https://docs.github.com/en/actions) to count the remaining seats in an GitHub plan. It is intended to be used in conjunction with other actions to do something like notify the user when there are less than 10 seats remaining.
