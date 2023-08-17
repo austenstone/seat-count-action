@@ -1,4 +1,5 @@
 name: Test Email
+permissions: {}
 on:
   push:
   pull_request:

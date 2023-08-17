@@ -1,4 +1,5 @@
 name: Test Jira
+permissions: {}
 on:
   push:
   pull_request:
@@ -15,14 +16,14 @@ jobs:
         org: octodemo
         github-token: ${{ secrets.TOKEN }}
     - name: Login
-      uses: atlassian/gajira-login@master
+      uses: atlassian/gajira-login@v3
       env:
         JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
         JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
     - name: Create
       id: create
-      uses: atlassian/gajira-create@master
+      uses: atlassian/gajira-create@v3
       with:
         project: SUP
         issuetype: Task
