@@ -35,7 +35,7 @@ jobs:
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
-  less-than-10-percent:
+  less-than-10:
     needs: [seats]
     if: needs.seats.outputs.remaining < 10
     runs-on: ubuntu-latest
