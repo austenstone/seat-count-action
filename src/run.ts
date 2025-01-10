@@ -46,14 +46,14 @@ const run = async (): Promise<void> => {
     if (plan.filled_seats && plan.seats) {
       let percentage = 0, remaining = 0;
       if (plan.seats === 'unlimited') {
-        core.setOutput('remaining', 'unlimited');
+        remaining = 'unlimited';
         percentage = 0;
       } else {
-        const percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
-        core.info(`${percentage}% of seats used`)
-        const remaining = plan.seats - plan.filled_seats;
-        core.info(`${remaining} seats remaining`)
+        percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
+        remaining = plan.seats - plan.filled_seats;
       }
+      core.info(`${remaining} seats remaining`);
+      core.info(`${percentage}% of seats used`);
       core.setOutput('percentage', percentage);
       core.setOutput('remaining', remaining);
     }
