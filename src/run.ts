@@ -50,7 +50,9 @@ const run = async (): Promise<void> => {
         percentage = 0;
       } else {
         percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
+        core.info(`${percentage}% of seats used`)
         remaining = plan.seats - plan.filled_seats;
+        core.info(`${remaining} seats remaining`)
       }
       core.info(`${remaining} seats remaining`);
       core.info(`${percentage}% of seats used`);
