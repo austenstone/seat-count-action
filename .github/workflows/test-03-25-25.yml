@@ -13,4 +13,5 @@ jobs:
       id: seats
       with:
         org: octodemo
+        enterprise: octodemo
         github-token: ${{secrets.TOKEN }}
