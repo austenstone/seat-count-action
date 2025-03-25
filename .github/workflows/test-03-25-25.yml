@@ -1,0 +1,16 @@
+name: Check Seat Count
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: 0 0 * * *
+
+jobs:
+  seats:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Seats Remaining
+      uses: austenstone/seat-count-action@v3.0
+      id: seats
+      with:
+        org: octodemo
+        github-token: ${{secrets.TOKEN }}
