@@ -16,7 +16,7 @@ jobs:
           org: octodemo
           github-token: ${{secrets.TOKEN}}
       - name: Print Output
-        run: echo "${{toJSON(steps.seats.outputs)}}"
+        run: echo "${{toJSON(steps.seats)}}"
     outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}

@@ -59,6 +59,8 @@ const run = async (): Promise<void> => {
       core.setOutput('percentage', percentage);
       core.setOutput('remaining', remaining);
     }
+  } else {
+    core.setFailed('Unable to determine plan. Ensure that OAuth app tokens and personal access tokens (classic) have the admin:org scope to see full details about an organization. For GitHub Apps, ensure the Organization plan permission is granted.');
   }
 };
 
