@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Get Seats Remaining
-        uses: austenstone/seat-count-action@v3.0
+        uses: austenstone/seat-count-action@main
         id: seats
         with:
           org: octodemo
