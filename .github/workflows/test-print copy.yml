@@ -9,18 +9,20 @@ jobs:
   seats:
     runs-on: ubuntu-latest
     steps:
-    - name: Get Seats Remaining
-      uses: austenstone/seat-count-action@v3.0
-      id: seats
-      with:
-        org: octodemo
-        github-token: ${{secrets.TOKEN}}
-    outputs: 
+      - name: Get Seats Remaining
+        uses: austenstone/seat-count-action@v3.0
+        id: seats
+        with:
+          org: octodemo
+          github-token: ${{secrets.TOKEN}}
+      - name: Print Output
+        run: echo "${{toJSON(steps.seats.outputs)}}"
+    outputs:
       percentage: ${{steps.seats.outputs.percentage}}
       remaining: ${{steps.seats.outputs.remaining}}
   less-than-10:
-      needs: [seats]
-      if: needs.seats.outputs.remaining < 20
-      runs-on: ubuntu-latest
-      steps:
+    needs: [seats]
+    if: needs.seats.outputs.remaining < 20
+    runs-on: ubuntu-latest
+    steps:
       - run: echo "Only ${{needs.seats.outputs.remaining}} GitHub seats remaining!"
