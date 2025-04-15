@@ -9533,14 +9533,17 @@ const run = () => __awaiter(void 0, void 0, void 0, function* () {
             }
             else {
                 percentage = Math.round(((plan.filled_seats / plan.seats) * 100));
-                core.info(`${percentage}% of seats used`);
                 remaining = plan.seats - plan.filled_seats;
-                core.info(`${remaining} seats remaining`);
             }
             core.info(`${remaining} seats remaining`);
             core.info(`${percentage}% of seats used`);
             core.setOutput('percentage', percentage);
             core.setOutput('remaining', remaining);
+        }
+        else {
+            core.info('No seats available');
+            core.setOutput('percentage', 0);
+            core.setOutput('remaining', 0);
         }
     }
     else {
